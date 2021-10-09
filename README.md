@@ -1,5 +1,12 @@
 # Welcome to Retention Curves!
 
+Installation guide - 
+[Installation guide document](https://github.com/TharangaSri/weekly_retention_curves/blob/master/Installation%20Note.pdf)
+
+UI guide - 
+[enter link description here](https://github.com/TharangaSri/weekly_retention_curves/blob/master/UI%20guide.pdf)
+
+
     git clone https://github.com/TharangaSri/weekly_retention_curves.git
     composer update
     copy .env.example .env
