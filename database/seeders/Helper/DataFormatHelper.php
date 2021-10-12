@@ -4,19 +4,19 @@ namespace Database\Seeders\Helper;
 
 class DataFormatHelper
 {
-    public static function formatNumberColumn($value)
+    public static function formatNumberColumn($Value)
     {
-        if (empty($value)) {
+        if (empty($Value)) {
             return  0;
         }
-        return $value;
+        return $Value;
     }
 
-    public static function formatDateColumn($value)
+    public static function formatDateColumn($Value)
     {
-        if (empty($value) || $value == ' ') {
+        if (empty($Value) || $Value == ' ') {
             return  null;
         }
-        return  date('Y-m-d h:m:s', strtotime($value));
+        return  date('Y-m-d h:m:s', strtotime($Value));
     }
 }

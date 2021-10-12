@@ -26,7 +26,7 @@ class UserChartTest extends TestCase
     public function test_viewChartIndex()
     {
         $this->withoutExceptionHandling();
-        $response = $this->get(route('chartIndex'));
-        $response->assertSuccessful();
+        $Response = $this->get(route('chartIndex'));
+        $Response->assertSuccessful();
     }
 }

@@ -14,23 +14,23 @@ class ChartController extends BaseController
     public function weeklyRetentionChartAction()
     {
         try {
-            $weeklyRetentionRecords = UserWeeklyRetentionChartView::all();
+            $WeeklyRetentionRecords = UserWeeklyRetentionChartView::all();
 
-            foreach ($weeklyRetentionRecords as $week) {
-                $returnArray = array();
+            foreach ($WeeklyRetentionRecords as $Week) {
+                $ReturnArray = array();
 
-                for ($levelIndex = 1; $levelIndex <= 8; $levelIndex++) {
-                    if ($levelIndex == 1) {
+                for ($LevelIndex = 1; $LevelIndex <= 8; $LevelIndex++) {
+                    if ($LevelIndex == 1) {
                         //set first level as 100
-                        $returnArray[] = 100;
+                        $ReturnArray[] = 100;
                     } else {
                         // eg:  (CurrentWeek_CurrentLevelValue / CurrentWeek_levelOneValue)*100
-                        $returnArray[] = round(($week->{"level" . $levelIndex} / $week->level1) * 100);
+                        $ReturnArray[] = round(($Week->{"level" . $LevelIndex} / $Week->level1) * 100);
                     }
                 }
-                $returnDataSet[] = array(
-                    "name" => $week->week_start,
-                    "data" => $returnArray
+                $ReturnDataSet[] = array(
+                    "name" => $Week->week_start,
+                    "data" => $ReturnArray
                 );
             }
 
@@ -38,7 +38,7 @@ class ChartController extends BaseController
             return response()->json(
                 [
                     "success" =>  true,
-                    "data" => $returnDataSet,
+                    "data" => $ReturnDataSet,
                 ],
                 200
             )->setEncodingOptions(JSON_NUMERIC_CHECK);
