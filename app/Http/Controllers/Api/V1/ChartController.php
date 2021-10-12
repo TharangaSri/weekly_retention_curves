@@ -2,49 +2,52 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Exception;
 use App\Models\UserWeeklyRetentionChartView;
 use Illuminate\Routing\Controller as BaseController;
 
 class ChartController extends BaseController
 {
-
     /**
      * Api action for /chart/weeklyRetention router
      */
-    public function onboardChartAction()
+    public function weeklyRetentionChartAction()
     {
-        //call database and get data from view
-        $weekly_retention = UserWeeklyRetentionChartView::all();
+        try {
+            $weeklyRetentionRecords = UserWeeklyRetentionChartView::all();
 
-        //loop with db results
-        foreach ($weekly_retention as $week) {
-            //create return array
-            $dataArray = array();
-            //loop with 8 levels
-            for ($i = 1; $i <= 8; $i++) {
+            foreach ($weeklyRetentionRecords as $week) {
+                $returnArray = array();
 
-                if ($i == 1) {
-                    //set start level as 100
-                    $dataArray[] = 100;
-                } else {
-                    /**
-                     *  '$week->level1' means all the records in db, less than or equal to 100, within the current week
-                     *  create current level percentage as week total 
-                     *  eg:  (CurrentWeek_CurrentLevelValue / CurrentWeek_levelOneValue)*100
-                     */
-                    $dataArray[] = round(($week->{"level" . $i} / $week->level1) * 100);
+                for ($levelIndex = 1; $levelIndex <= 8; $levelIndex++) {
+                    if ($levelIndex == 1) {
+                        //set first level as 100
+                        $returnArray[] = 100;
+                    } else {
+                        // eg:  (CurrentWeek_CurrentLevelValue / CurrentWeek_levelOneValue)*100
+                        $returnArray[] = round(($week->{"level" . $levelIndex} / $week->level1) * 100);
+                    }
                 }
+                $returnDataSet[] = array(
+                    "name" => $week->week_start,
+                    "data" => $returnArray
+                );
             }
-            //create final return array
-            $returnDataSet[] = array(
-                "name" => $week->week_start,
-                "data" => $dataArray
-            );
+
+            //return data
+            return response()->json(
+                [
+                    "success" =>  true,
+                    "data" => $returnDataSet,
+                ],
+                200
+            )->setEncodingOptions(JSON_NUMERIC_CHECK);
+        } catch (Exception $ex) {
+            //return exception message
+            return response()->json([
+                'success' =>  false,
+                'message' => ' Error: ' . $ex->getMessage(),
+            ], 500);
         }
-        //return data 
-        return response()->json([
-            "success" =>  false,
-            "data" => $returnDataSet,
-        ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
 }

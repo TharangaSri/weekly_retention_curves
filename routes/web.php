@@ -18,6 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-Route::get('/chart/UserWeeklyRetentionChart', 'App\Http\Controllers\WebController@chartIndexAction');
+Route::get('/chart/UserWeeklyRetentionChart', 'App\Http\Controllers\WebController@chartIndexAction')->name('chartIndex');

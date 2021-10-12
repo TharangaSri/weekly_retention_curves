@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 //return chart data josn
-Route::get('/chart/weeklyRetention', 'App\Http\Controllers\Api\V1\ChartController@onboardChartAction');
+Route::get('/chart/weeklyRetention', 'App\Http\Controllers\Api\V1\ChartController@weeklyRetentionChartAction');
