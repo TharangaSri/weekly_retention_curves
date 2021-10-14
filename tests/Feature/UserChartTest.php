@@ -20,7 +20,10 @@ class UserChartTest extends TestCase
             ->assertStatus(200)
             ->assertJson([
                 'success' => true,
-            ]);
+            ])->assertJsonStructure([
+                "data",
+                "success"
+        ]);
     }
 
     public function test_viewChartIndex()
