@@ -2,13 +2,8 @@
 
 namespace Tests\Feature;
 
-use Mockery;
 use Tests\TestCase;
-use Mockery\MockInterface;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Foundation\Testing\WithFaker;
-use App\Http\Controllers\Api\V1\ChartController;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ChartControllerTest extends TestCase
