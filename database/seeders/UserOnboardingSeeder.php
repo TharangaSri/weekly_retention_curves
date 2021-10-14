@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\UserOnboarding;
 use Illuminate\Database\Seeder;
-use Database\Seeders\Helper\DataFormatHelper;
+use Database\Seeders\Helpers\DataFormatHelper;
 
 class UserOnboardingSeeder extends Seeder
 {
@@ -18,22 +18,23 @@ class UserOnboardingSeeder extends Seeder
         UserOnboarding::truncate();
 
         //open and read csv file
-        $CsvFile = fopen(base_path("database/data/export.csv"), "r");
+        $csvFile = fopen(base_path("database/data/export.csv"), "r");
 
-        $FirstLine = true;
-        while (($Data = fgetcsv($CsvFile, 340, ";")) !== FALSE) {
-            if (!$FirstLine) {
+        $firstLine = true;
+        while (($data = fgetcsv($csvFile, 340, ";")) !== FALSE) {
+            if (!$firstLine) {
                 //create userOnboarding records
-                UserOnboarding::create(["user_id" => trim($Data['0']),
-                    "created_date" => DataFormatHelper::formatDateColumn(trim($Data['1'])),
-                    "onboarding_percentage" => DataFormatHelper::formatNumberColumn(trim($Data['2'])),
-                    "count_applications" => DataFormatHelper::formatNumberColumn(trim($Data['3'])),
-                    "count_accepted_applications" => DataFormatHelper::formatNumberColumn(trim($Data['4']))
+                UserOnboarding::create([
+                    "user_id" => trim($data['0']),
+                    "created_date" => DataFormatHelper::formatDateColumn(trim($data['1'])),
+                    "onboarding_percentage" => DataFormatHelper::formatNumberColumn(trim($data['2'])),
+                    "count_applications" => DataFormatHelper::formatNumberColumn(trim($data['3'])),
+                    "count_accepted_applications" => DataFormatHelper::formatNumberColumn(trim($data['4']))
                 ]);
             }
-            $FirstLine = false;
+            $firstLine = false;
         }
 
-        fclose($CsvFile);
+        fclose($csvFile);
     }
 }
