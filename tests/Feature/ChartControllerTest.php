@@ -53,7 +53,6 @@ class ChartControllerTest extends TestCase
     public function test_the_chart_index_page_is_rendered_properly()
     {
         $this->withoutExceptionHandling();
-        $this->withoutExceptionHandling();
         $Response = $this->get(route('chartIndex'));
         $Response->assertSuccessful();
     }
