@@ -15,7 +15,7 @@ class CreateUserChartView extends Migration
     public function up()
     {
         DB::statement("
-            CREATE VIEW user_weekly_retention_chart_view AS
+        CREATE OR REPLACE VIEW  user_weekly_retention_chart_view AS
             SELECT
                 DATE_ADD(created_date, INTERVAL(2-DAYOFWEEK(created_date)) DAY) AS week_start,
                 CONCAT(YEAR(created_date), '/', WEEK(created_date)) AS week_name,
@@ -41,6 +41,6 @@ class CreateUserChartView extends Migration
      */
     public function down()
     {
-        DB::statement("DROP VIEW IF EXISTS `user_weekly_retention_chart_view`;");
+        DB::statement(" DROP VIEW  `user_weekly_retention_chart_view`; ");
     }
 }
